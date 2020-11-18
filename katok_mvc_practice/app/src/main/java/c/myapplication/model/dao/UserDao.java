@@ -19,7 +19,7 @@ public interface UserDao {
     LiveData<List<UserChat>> findListInformation();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertUser(UserEntity... userEntities);
+    void insertUser(UserEntity userEntity);
 
 
     public static class UserChat {

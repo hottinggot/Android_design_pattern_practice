@@ -1,6 +1,9 @@
 package c.myapplication.view;
 
 import android.app.Application;
+import android.content.Context;
+
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
@@ -12,12 +15,15 @@ public interface MainContract {
     interface MainView{
         Application getMyApplication();
         void setAdapter(final List<UserDao.UserChat> userChatList);
+        int getLastUserId();
         String getNewUserString();
+        Context getMyActivity();
 
     }
 
     interface MainPresenter{
-        void makeUserList();
+        LiveData<List<UserDao.UserChat>> makeUserList();
+        void setUserList(List<UserDao.UserChat> userChats);
         void insertUser();
     }
 
@@ -29,7 +35,8 @@ public interface MainContract {
     }
 
     interface ChatPresenter{
-        void makeChatList();
+        LiveData<List<ChatEntity>> makeChatList();
+        void setChatList(List<ChatEntity> chatEntityList);
         void insertChat();
     }
 }

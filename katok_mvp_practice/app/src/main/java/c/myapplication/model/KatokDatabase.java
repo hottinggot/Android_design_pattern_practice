@@ -29,7 +29,7 @@ public abstract class KatokDatabase extends RoomDatabase {
     public static KatokDatabase getInstance(Context context) {
         if(INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                    KatokDatabase.class, "katok_db").build();
+                    KatokDatabase.class, "katok_db_1").build();
         }
 
         return INSTANCE;

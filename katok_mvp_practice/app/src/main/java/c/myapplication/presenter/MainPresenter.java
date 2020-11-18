@@ -1,6 +1,10 @@
 package c.myapplication.presenter;
 
+import android.content.Context;
+
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import java.util.List;
@@ -14,8 +18,11 @@ public class MainPresenter implements MainContract.MainPresenter {
     private MainContract.MainView mainView;
     private UserRepository userRepository;
 
-    public MainPresenter(MainContract.MainView mainView) {
+    private Context context;
+
+    public MainPresenter(MainContract.MainView mainView, Context context) {
         this.mainView = mainView;
+        this.context = context;
     }
 
     private void setUserRepository() {
@@ -23,21 +30,22 @@ public class MainPresenter implements MainContract.MainPresenter {
     }
 
     @Override
-    public void makeUserList() {
+    public LiveData<List<UserDao.UserChat>> makeUserList() {
         setUserRepository();
-        userRepository.findListInformation()
-                .observe((LifecycleOwner) mainView.getMyApplication(), new Observer<List<UserDao.UserChat>>() {
-                    @Override
-                    public void onChanged(List<UserDao.UserChat> userChats) {
-                        mainView.setAdapter(userChats);
-                    }
-                });
+        return userRepository.findListInformation();
+    }
+
+    @Override
+    public void setUserList(List<UserDao.UserChat> userChats){
+        mainView.setAdapter(userChats);
     }
 
     @Override
     public void insertUser() {
-        setUserRepository();
-        userRepository.insertUser(mainView.getNewUserString());
+        if(mainView.getNewUserString().length()!=0){
+            setUserRepository();
+            userRepository.insertUser(mainView.getLastUserId(), mainView.getNewUserString());
+        }
     }
 
 }

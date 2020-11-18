@@ -1,6 +1,7 @@
 package c.myapplication.presenter;
 
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import java.util.List;
@@ -23,16 +24,14 @@ public class ChattingPresenter implements MainContract.ChatPresenter {
     }
 
     @Override
-    public void makeChatList() {
+    public LiveData<List<ChatEntity>> makeChatList() {
         setChatRepository();
+        return chatRepository.findChatList(chatView.getUserId());
+    }
 
-        chatRepository.findChatList(chatView.getUserId())
-                .observe((LifecycleOwner) chatView.getMyApplication(), new Observer<List<ChatEntity>>() {
-                    @Override
-                    public void onChanged(List<ChatEntity> chatEntities) {
-                        chatView.setAdapter(chatEntities);
-                    }
-                });
+    @Override
+    public void setChatList(List<ChatEntity> chatEntityList){
+        chatView.setAdapter(chatEntityList);
     }
 
     @Override

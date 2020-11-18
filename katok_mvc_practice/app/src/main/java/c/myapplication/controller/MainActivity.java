@@ -1,6 +1,7 @@
 package c.myapplication.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private UserRepository userRepository;
     private ChatRepository chatRepository;
 
+    private LifecycleOwner lifecycleOwner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +50,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.chat_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        lifecycleOwner = this;
+
         //Model
         userRepository = new UserRepository(getApplication());
 
-        userRepository.findListInformation().observe(this, new Observer<List<UserDao.UserChat>>() {
+        userRepository.findListInformation().observe(lifecycleOwner, new Observer<List<UserDao.UserChat>>() {
             @Override
             public void onChanged(List<UserDao.UserChat> userChats) {
                 userChatList = userChats;
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (add_text.getText().toString().length() != 0) {
-                    userRepository.insertUser();
+                    userRepository.insertUser(userChatList, add_text.getText().toString());
                 }
             }
         });

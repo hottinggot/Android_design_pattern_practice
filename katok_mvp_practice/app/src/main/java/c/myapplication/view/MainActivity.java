@@ -1,10 +1,13 @@
 package c.myapplication.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,12 +27,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     UserListAdapter userListAdapter;
     RecyclerView recyclerView;
 
+    private List<UserDao.UserChat> userChatList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new MainPresenter(this);
+        presenter = new MainPresenter(this, getApplication());
 
         //add 버튼에 리스너 달기
         findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
@@ -42,12 +47,31 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         //recyclerView 에 adapter 달기
         recyclerView = findViewById(R.id.chat_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        presenter.makeUserList();
+        presenter.makeUserList().observe(this, new Observer<List<UserDao.UserChat>>() {
+            @Override
+            public void onChanged(List<UserDao.UserChat> userChats) {
+                userChatList = userChats;
+                presenter.setUserList(userChats);
+            }
+        });
     }
 
     @Override
     public Application getMyApplication(){
         return getApplication();
+    }
+
+    @Override
+    public Context getMyActivity(){
+        return getApplicationContext();
+    }
+
+    @Override
+    public int getLastUserId() {
+        if(userChatList.size()==0){
+            return 0;
+        }
+        else return userChatList.get(0).userId;
     }
 
     @Override
@@ -69,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ChattingActivity.class);
                 intent.putExtra("userId", userChatList.get(recyclerView.getChildAdapterPosition(view)).userId);
+                intent.putExtra("userName", userChatList.get(recyclerView.getChildAdapterPosition(view)).userName);
                 startActivity(intent);
             }
         });

@@ -21,9 +21,6 @@ public class UserRepository {
     private LiveData<List<UserDao.UserChat>> userEntityList;
     private List<UserDao.UserChat> userChatList;
 
-    private UserEntity user;
-    private ChatEntity chat;
-
     public UserRepository(Application application) {
         KatokDatabase db = KatokDatabase.getInstance(application);
         userDao = db.userDao();
@@ -35,25 +32,17 @@ public class UserRepository {
         return userEntityList;
     }
 
-    public void insertUser(final String userName) {
-        userDao.findListInformation().observe((LifecycleOwner) this, new Observer<List<UserDao.UserChat>>() {
-            @Override
-            public void onChanged(List<UserDao.UserChat> userChats) {
-                userChatList = userChats;
-                user = new UserEntity();
-                chat = new ChatEntity();
-                if (userChatList.size() == 0) {
-                    user.userId = 1;
-                    chat.userId = 1;
-                } else {
-                    int n = userChatList.get(0).userId + 1;
-                    user.userId = n;
-                    chat.userId = n;
-                }
-                user.userName = userName;
-                insert(user, chat);
-            }
-        });
+    public void insertUser(int userId, final String userName) {
+
+        UserEntity user = new UserEntity();
+        ChatEntity chat = new ChatEntity();
+
+        int n = userId + 1;
+        user.userId = n;
+        chat.userId = n;
+
+        user.userName = userName;
+        insert(user, chat);
 
     }
 

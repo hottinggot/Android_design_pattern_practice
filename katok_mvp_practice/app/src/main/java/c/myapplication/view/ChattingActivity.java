@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,9 +32,14 @@ public class ChattingActivity extends AppCompatActivity implements MainContract.
         chatPresenter = new ChattingPresenter(this);
 
         //recyclerView 설정
-        recyclerView = findViewById(R.id.chat_recycler);
+        recyclerView = findViewById(R.id.chatting_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        chatPresenter.makeChatList();
+        chatPresenter.makeChatList().observe(this, new Observer<List<ChatEntity>>() {
+            @Override
+            public void onChanged(List<ChatEntity> chatEntities) {
+                chatPresenter.setChatList(chatEntities);
+            }
+        });
 
         //전송버튼에 리스너 달기
         findViewById(R.id.button_to_send).setOnClickListener(new View.OnClickListener() {
