@@ -15,7 +15,7 @@ import android.widget.EditText;
 import java.util.List;
 
 
-import c.myapplication.MainContract;
+import c.myapplication.contract.MainContract;
 import c.myapplication.R;
 import c.myapplication.model.dao.UserDao;
 import c.myapplication.view.adapter.UserListAdapter;
@@ -59,11 +59,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     @Override
     public Application getMyApplication(){
         return getApplication();
-    }
-
-    @Override
-    public Context getMyActivity(){
-        return getApplicationContext();
     }
 
     @Override

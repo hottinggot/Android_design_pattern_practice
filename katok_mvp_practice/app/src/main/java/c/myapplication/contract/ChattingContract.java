@@ -1,4 +1,4 @@
-package c.myapplication;
+package c.myapplication.contract;
 
 import android.app.Application;
 

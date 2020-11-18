@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import c.myapplication.ChattingContract;
+import c.myapplication.contract.ChattingContract;
 import c.myapplication.model.entity.ChatEntity;
 import c.myapplication.model.repository.ChatRepository;
-import c.myapplication.MainContract;
 
 public class ChattingPresenter implements ChattingContract.ChatPresenter {
 

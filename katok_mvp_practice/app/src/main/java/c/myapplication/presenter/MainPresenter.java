@@ -8,7 +8,7 @@ import java.util.List;
 
 import c.myapplication.model.dao.UserDao;
 import c.myapplication.model.repository.UserRepository;
-import c.myapplication.MainContract;
+import c.myapplication.contract.MainContract;
 
 public class MainPresenter implements MainContract.MainPresenter {
 

@@ -1,4 +1,4 @@
-package c.myapplication;
+package c.myapplication.contract;
 
 import android.app.Application;
 import android.content.Context;
@@ -17,8 +17,6 @@ public interface MainContract {
         void setAdapter(final List<UserDao.UserChat> userChatList);
         int getLastUserId();
         String getNewUserString();
-        Context getMyActivity();
-
     }
 
     interface MainPresenter{

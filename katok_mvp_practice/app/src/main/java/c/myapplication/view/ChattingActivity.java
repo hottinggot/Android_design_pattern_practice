@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import c.myapplication.ChattingContract;
-import c.myapplication.MainContract;
+import c.myapplication.contract.ChattingContract;
 import c.myapplication.R;
 import c.myapplication.model.entity.ChatEntity;
 import c.myapplication.view.adapter.ChattingAdapter;
