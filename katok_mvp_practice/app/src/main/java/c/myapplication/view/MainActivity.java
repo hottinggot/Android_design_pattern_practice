@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
             @Override
             public void onChanged(List<UserDao.UserChat> userChats) {
                 userChatList = userChats;
-                presenter.setUserList(userChats);
+                setAdapter(recyclerView);
             }
         });
     }
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         return add_text.getText().toString().trim();
     }
 
-    @Override
-    public void setAdapter(final List<UserDao.UserChat> userChatList){
+
+    private void setAdapter(final RecyclerView recyclerView){
         if(userListAdapter==null)
             userListAdapter = new UserListAdapter(userChatList);
 

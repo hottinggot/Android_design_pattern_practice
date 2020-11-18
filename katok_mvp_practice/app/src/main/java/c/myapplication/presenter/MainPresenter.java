@@ -32,10 +32,10 @@ public class MainPresenter implements MainContract.MainPresenter {
         return userRepository.findListInformation();
     }
 
-    @Override
-    public void setUserList(List<UserDao.UserChat> userChats){
-        mainView.setAdapter(userChats);
-    }
+//    @Override
+//    public void setUserList(List<UserDao.UserChat> userChats){
+//        mainView.setAdapter(userChats);
+//    }
 
     @Override
     public void insertUser() {

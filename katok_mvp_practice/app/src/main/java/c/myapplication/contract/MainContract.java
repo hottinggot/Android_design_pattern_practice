@@ -14,14 +14,12 @@ public interface MainContract {
 
     interface MainView{
         Application getMyApplication();
-        void setAdapter(final List<UserDao.UserChat> userChatList);
         int getLastUserId();
         String getNewUserString();
     }
 
     interface MainPresenter{
         LiveData<List<UserDao.UserChat>> makeUserList();
-        void setUserList(List<UserDao.UserChat> userChats);
         void insertUser();
     }
 

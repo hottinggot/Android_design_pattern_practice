@@ -38,7 +38,7 @@ public class ChattingActivity extends AppCompatActivity implements ChattingContr
         chatPresenter.makeChatList().observe(this, new Observer<List<ChatEntity>>() {
             @Override
             public void onChanged(List<ChatEntity> chatEntities) {
-                chatPresenter.setChatList(chatEntities);
+                setAdapter(recyclerView, chatEntities);
             }
         });
 
@@ -57,8 +57,8 @@ public class ChattingActivity extends AppCompatActivity implements ChattingContr
         return getApplication();
     }
 
-    @Override
-    public void setAdapter(List<ChatEntity> chatEntityList){
+
+    private void setAdapter(RecyclerView recyclerView, List<ChatEntity> chatEntityList){
         if(chattingAdapter==null)
             chattingAdapter = new ChattingAdapter(chatEntityList);
         else

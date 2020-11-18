@@ -28,11 +28,6 @@ public class ChattingPresenter implements ChattingContract.ChatPresenter {
     }
 
     @Override
-    public void setChatList(List<ChatEntity> chatEntityList){
-        chatView.setAdapter(chatEntityList);
-    }
-
-    @Override
     public void insertChat() {
         setChatRepository();
         chatRepository.insertChat(chatView.getUserId(), chatView.getTextMessage());
