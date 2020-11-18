@@ -1,4 +1,4 @@
-package c.myapplication.view;
+package c.myapplication;
 
 import android.app.Application;
 import android.content.Context;
@@ -27,16 +27,5 @@ public interface MainContract {
         void insertUser();
     }
 
-    interface ChatView{
-        Application getMyApplication();
-        void setAdapter(final List<ChatEntity> chatEntityList);
-        int getUserId();
-        String getTextMessage();
-    }
 
-    interface ChatPresenter{
-        LiveData<List<ChatEntity>> makeChatList();
-        void setChatList(List<ChatEntity> chatEntityList);
-        void insertChat();
-    }
 }

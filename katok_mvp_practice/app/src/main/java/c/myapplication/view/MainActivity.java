@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +15,7 @@ import android.widget.EditText;
 import java.util.List;
 
 
+import c.myapplication.MainContract;
 import c.myapplication.R;
 import c.myapplication.model.dao.UserDao;
 import c.myapplication.view.adapter.UserListAdapter;

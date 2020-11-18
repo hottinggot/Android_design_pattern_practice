@@ -13,16 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import c.myapplication.ChattingContract;
+import c.myapplication.MainContract;
 import c.myapplication.R;
 import c.myapplication.model.entity.ChatEntity;
 import c.myapplication.view.adapter.ChattingAdapter;
 import c.myapplication.presenter.ChattingPresenter;
 
-public class ChattingActivity extends AppCompatActivity implements MainContract.ChatView {
+public class ChattingActivity extends AppCompatActivity implements ChattingContract.ChatView {
 
     ChattingAdapter chattingAdapter;
     RecyclerView recyclerView;
-    MainContract.ChatPresenter chatPresenter;
+    ChattingContract.ChatPresenter chatPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

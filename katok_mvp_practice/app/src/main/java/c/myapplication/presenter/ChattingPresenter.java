@@ -1,21 +1,20 @@
 package c.myapplication.presenter;
 
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
 import java.util.List;
 
+import c.myapplication.ChattingContract;
 import c.myapplication.model.entity.ChatEntity;
 import c.myapplication.model.repository.ChatRepository;
-import c.myapplication.view.MainContract;
+import c.myapplication.MainContract;
 
-public class ChattingPresenter implements MainContract.ChatPresenter {
+public class ChattingPresenter implements ChattingContract.ChatPresenter {
 
-    private MainContract.ChatView chatView;
+    private ChattingContract.ChatView chatView;
     private ChatRepository chatRepository;
 
-    public ChattingPresenter(MainContract.ChatView chatView) {
+    public ChattingPresenter(ChattingContract.ChatView chatView) {
         this.chatView = chatView;
     }
 

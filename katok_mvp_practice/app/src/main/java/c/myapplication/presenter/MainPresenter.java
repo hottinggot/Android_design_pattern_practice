@@ -2,16 +2,13 @@ package c.myapplication.presenter;
 
 import android.content.Context;
 
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
 import java.util.List;
 
 import c.myapplication.model.dao.UserDao;
 import c.myapplication.model.repository.UserRepository;
-import c.myapplication.view.MainContract;
+import c.myapplication.MainContract;
 
 public class MainPresenter implements MainContract.MainPresenter {
 

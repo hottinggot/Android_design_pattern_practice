@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "katok_mvvm_practice"
