@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import c.myapplication.katok_mvvm_practice.R;
+import c.myapplication.katok_mvvm_practice.databinding.ChattingObjectsBinding;
+import c.myapplication.katok_mvvm_practice.databinding.ListObjectsBinding;
 import c.myapplication.katok_mvvm_practice.model.entity.ChatEntity;
 
-public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.ChattingViewHolder> {
+public class ChattingAdapter extends RecyclerView.Adapter<BindViewHolder<ChattingObjectsBinding>> {
 
     List<ChatEntity> chatEntityList;
     View.OnClickListener onItemViewClickListener;
@@ -23,13 +25,13 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.Chatti
     }
 
     @Override
-    public ChattingViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public BindViewHolder<ChattingObjectsBinding> onCreateViewHolder(ViewGroup parent, int viewType){
         View view;
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chatting_objects, parent, false);
         if(onItemViewClickListener!=null){
             view.setOnClickListener(onItemViewClickListener);
         }
-        return new ChattingViewHolder(view);
+        return new BindViewHolder<>(view);
     }
 
     @Override
@@ -38,18 +40,8 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.Chatti
     }
 
     @Override
-    public void onBindViewHolder(final ChattingViewHolder holder, final int position) {
-        holder.chatting_contents.setText(chatEntityList.get(position).contents);
-    }
-
-    class ChattingViewHolder extends RecyclerView.ViewHolder{
-
-        TextView chatting_contents;
-
-        ChattingViewHolder(View view){
-            super(view);
-            chatting_contents = view.findViewById(R.id.chatting_contents);
-        }
+    public void onBindViewHolder(final BindViewHolder<ChattingObjectsBinding> holder, final int position) {
+        holder.binding().setChatEntity(chatEntityList.get(position));
     }
 
     public void setNewList(List<ChatEntity> chatEntities){

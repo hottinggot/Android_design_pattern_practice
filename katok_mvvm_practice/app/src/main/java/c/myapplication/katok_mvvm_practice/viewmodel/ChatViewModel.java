@@ -2,6 +2,7 @@ package c.myapplication.katok_mvvm_practice.viewmodel;
 
 import android.app.Application;
 
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -27,4 +28,9 @@ public class ChatViewModel extends AndroidViewModel {
     public void insertMessage(int userId, String msg) {
         chatRepository.insertChat(userId, msg);
     }
+
+    public void getMessage(){
+
+    }
+
 }

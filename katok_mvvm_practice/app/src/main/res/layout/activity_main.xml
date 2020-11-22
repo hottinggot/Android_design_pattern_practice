@@ -3,15 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
 
-    <!--data>
-        <import type="android.view.View" />
-        <import type="androidx.databinding.ObservableArrayList" />
-        <import type="c.myapplication.katok_mvvm_practice.model.dao.UserDao.UserChat" />
 
+    <data>
         <variable
-            name="userChatList"
-            type="ObservableArrayList&lt;UserChat&gt;" />
-    </data-->
+            name="userViewModel"
+            type="c.myapplication.katok_mvvm_practice.viewmodel.UserViewModel" />
+    </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

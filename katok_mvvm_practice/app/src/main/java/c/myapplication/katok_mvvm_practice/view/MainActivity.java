@@ -2,6 +2,7 @@ package c.myapplication.katok_mvvm_practice.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,28 +30,24 @@ public class MainActivity extends AppCompatActivity {
     private EditText add_text;
     private Button add_button;
 
-    private RecyclerView recyclerView;
     private UserListAdapter userListAdapter;
 
-    private List<UserDao.UserChat> userChatList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        recyclerView = findViewById(R.id.chat_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setUserViewModel(userViewModel);
+
+        binding.chatRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         userViewModel.getAllUserChat().observe(this, new Observer<List<UserDao.UserChat>>() {
             @Override
             public void onChanged(List<UserDao.UserChat> userChats) {
-                userChatList = userChats;
-                setAdapter(recyclerView);
+                setAdapter(userChats);
             }
         });
 
@@ -60,22 +57,14 @@ public class MainActivity extends AppCompatActivity {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userViewModel.insertUser(getLastId(), add_text.getText().toString());
+                userViewModel.insertUser(userViewModel.getLastId(), add_text.getText().toString());
             }
         });
 
     }
 
-    private int getLastId(){
-        if(userChatList.size()==0){
-            return 0;
-        } else {
-            return userChatList.get(0).userId;
-        }
 
-    }
-
-    private void setAdapter(final RecyclerView recyclerView){
+    private void setAdapter(final List<UserDao.UserChat> userChatList){
         if(userListAdapter==null) {
             userListAdapter = new UserListAdapter(userChatList);
         } else{
@@ -86,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ChattingActivity.class);
-                intent.putExtra("userId", userChatList.get(recyclerView.getChildAdapterPosition(view)).userId);
-                intent.putExtra("userName", userChatList.get(recyclerView.getChildAdapterPosition(view)).userName);
+                intent.putExtra("userId", userChatList.get(binding.chatRecycler.getChildAdapterPosition(view)).userId);
+                intent.putExtra("userName", userChatList.get(binding.chatRecycler.getChildAdapterPosition(view)).userName);
                 startActivity(intent);
             }
         });
 
-        recyclerView.setAdapter(userListAdapter);
+        binding.chatRecycler.setAdapter(userListAdapter);
     }
 }
